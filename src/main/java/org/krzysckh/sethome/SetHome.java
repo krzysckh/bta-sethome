@@ -11,6 +11,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.phys.*;
 
 import java.util.Optional;
+import java.net.InetAddress;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -27,6 +28,9 @@ public class SetHome implements ModInitializer {
 
   private void initializeDB() {
     try {
+      if (InetAddress.getLocalHost().getHostName().equals("fuji"))
+        System.setProperty("org.sqlite.lib.path", "/var/minecraft/sqlite");
+
       DB_CON = DriverManager.getConnection(dburl);
 
       PreparedStatement s = DB_CON
