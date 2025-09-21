@@ -1,0 +1,12 @@
+.gradle/
+.idea/
+.vscode/
+bin/
+build/
+out/
+run/
+run-server/
+*.~undo-tree~
+gradle/*
+gradlew
+gradlew.bat

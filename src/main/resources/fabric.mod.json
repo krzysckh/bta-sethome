@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "sethome",
+  "version": "${version}",
+
+  "name": "sethome",
+  "description": "simple sethome",
+  "authors": [
+    "Krz Ysckh"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+	"icon": "icon.png",
+  "license": "BSD-2-Clause",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+			"org.krzysckh.sethome.SetHome"
+    ]
+	},
+  "mixins": [
+      "sethome.mixins.json"
+  ],
+
+  "depends": {
+		"minecraft": "*",
+    "fabricloader": ">=0.15.5"
+  },
+  "suggests": {
+  }
+}
