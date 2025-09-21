@@ -41,7 +41,7 @@ public class HomeCommand implements CommandManager.CommandRegistry {
                                       double y = home.place.y;
                                       double z = home.place.z;
                                       // player.setPos(x, y, z);
-                                      player.absMoveTo(x, y, z, player.xRot, player.yRot);
+                                      player.absMoveTo(x, y, z, player.yRot, player.xRot);
 									}
 
 									return Command.SINGLE_SUCCESS;
