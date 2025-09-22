@@ -34,7 +34,7 @@ public class SetHome implements ModInitializer {
       DB_CON = DriverManager.getConnection(dburl);
 
       PreparedStatement s = DB_CON
-          .prepareStatement("CREATE TABLE IF NOT EXISTS homes (player text, name text, x double, y double, z double, removedp boolean);");
+          .prepareStatement("CREATE TABLE IF NOT EXISTS homes (player text, name text, x double, y double, z double, dimension int, removedp boolean);");
       s.executeUpdate();
     } catch (Exception e) {
       LOGGER.error(String.format("Couldn't initialize database: %s", e.getMessage()));
@@ -47,12 +47,13 @@ public class SetHome implements ModInitializer {
     Vec3 pos = p.getPosition(0, false);
 
     try {
-      PreparedStatement s = DB_CON.prepareStatement("INSERT INTO homes (player, name, x, y, z, removedp) VALUES (?, ?, ?, ?, ?, 0)");
+      PreparedStatement s = DB_CON.prepareStatement("INSERT INTO homes (player, name, x, y, z, dimension, removedp) VALUES (?, ?, ?, ?, ?, ?, 0)");
       s.setString(1, pname);
       s.setString(2, name);
       s.setDouble(3, pos.x);
       s.setDouble(4, pos.y);
       s.setDouble(5, pos.z);
+      s.setInt(6, p.dimension);
       s.executeUpdate();
     } catch (Exception e) {
       p.sendTranslatedChatMessage(String.format("Oops!: %s", e.getMessage()));
@@ -67,12 +68,12 @@ public class SetHome implements ModInitializer {
 
     try {
       PreparedStatement s = DB_CON
-          .prepareStatement("SELECT name, x, y, z FROM homes WHERE player = ? and removedp = 0");
+          .prepareStatement("SELECT name, x, y, z, dimension FROM homes WHERE player = ? and removedp = 0");
       s.setString(1, pn);
       ResultSet rs = s.executeQuery();
 
       while (rs.next())
-        a.add(new Home(pn, rs.getString("name"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z")));
+        a.add(new Home(pn, rs.getString("name"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getInt("dimension")));
 
     } catch (Exception e) {
       p.sendTranslatedChatMessage(String.format("Oops!: %s", e.getMessage()));
@@ -87,13 +88,13 @@ public class SetHome implements ModInitializer {
 
     try {
       PreparedStatement s = DB_CON
-          .prepareStatement("SELECT name, x, y, z FROM homes WHERE player = ? and removedp = 0 and name = ?");
+          .prepareStatement("SELECT name, x, y, z, dimension FROM homes WHERE player = ? and removedp = 0 and name = ?");
       s.setString(1, pn);
       s.setString(2, name);
       ResultSet rs = s.executeQuery();
 
       while (rs.next())
-        return Optional.of(new Home(pn, rs.getString("name"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z")));
+        return Optional.of(new Home(pn, rs.getString("name"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getInt("dimension")));
     } catch (Exception e) {
       p.sendTranslatedChatMessage(String.format("Oops!: %s", e.getMessage()));
       LOGGER.warn(e.getMessage());

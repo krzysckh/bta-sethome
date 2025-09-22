@@ -7,11 +7,13 @@ public class Home {
   public String owner;
   public String name;
   public Vec3 place;
+  public int dimension;
 
-  public Home(String owner, String name, Double x, Double y, Double z) {
+  public Home(String owner, String name, double x, double y, double z, int dimension) {
     this.owner = owner;
     this.name = name;
     this.place = Vec3.getPermanentVec3(x, y, z);
+    this.dimension = dimension;
   }
 
   @Override

@@ -18,27 +18,27 @@ import net.minecraft.core.util.phys.*;
 import org.krzysckh.sethome.SetHome;
 
 public class SethomeCommand implements CommandManager.CommandRegistry {
-	public SethomeCommand() {
-	}
+  public SethomeCommand() {
+  }
 
-	public void register(CommandDispatcher<CommandSource> dispatcher) {
-		CommandNode<CommandSource> command = dispatcher
-				.register((ArgumentBuilderLiteral<CommandSource>) (Object) ArgumentBuilderLiteral.literal("sethome")
-						.then(ArgumentBuilderRequired.argument("name", ArgumentTypeString.word())
-								.executes((c) -> {
-									CommandSource source = (CommandSource) c.getSource();
-									Player player = source.getSender();
-									String homeName = c.getArgument("name", String.class);
+  public void register(CommandDispatcher<CommandSource> dispatcher) {
+    CommandNode<CommandSource> command = dispatcher
+        .register((ArgumentBuilderLiteral<CommandSource>) (Object) ArgumentBuilderLiteral.literal("sethome")
+            .then(ArgumentBuilderRequired.argument("name", ArgumentTypeString.word())
+                .executes((c) -> {
+                  CommandSource source = (CommandSource) c.getSource();
+                  Player player = source.getSender();
+                  String homeName = c.getArgument("name", String.class);
 
-									if (SetHome.getHome(player, homeName).isEmpty()) {
-                                      SetHome.saveHome(player, homeName);
-									} else {
-                                      player.sendTranslatedChatMessage(String.format("home %s is already present. use /delhome", homeName));
-									}
+                  if (SetHome.getHome(player, homeName).isEmpty()) {
+                    SetHome.saveHome(player, homeName);
+                  } else {
+                    player.sendTranslatedChatMessage(String.format("home %s is already present. use /delhome", homeName));
+                  }
 
-									return Command.SINGLE_SUCCESS;
-									})
-								));
-	dispatcher.register((ArgumentBuilderLiteral<CommandSource>) (Object) ArgumentBuilderLiteral.literal("sh").redirect((CommandNode <Object>) (Object) command));
+                  return Command.SINGLE_SUCCESS;
+                })));
+    dispatcher.register((ArgumentBuilderLiteral<CommandSource>) (Object) ArgumentBuilderLiteral.literal("sh")
+        .redirect((CommandNode<Object>) (Object) command));
   }
 }

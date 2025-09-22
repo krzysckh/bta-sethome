@@ -12,21 +12,21 @@
     "homepage": "",
     "sources": ""
   },
-	"icon": "icon.png",
+  "icon": "icon.png",
   "license": "BSD-2-Clause",
 
-  "environment": "*",
+  "environment": "server",
   "entrypoints": {
     "main": [
-			"org.krzysckh.sethome.SetHome"
+      "org.krzysckh.sethome.SetHome"
     ]
-	},
+  },
   "mixins": [
-      "sethome.mixins.json"
+    "sethome.mixins.json"
   ],
 
   "depends": {
-		"minecraft": "*",
+    "minecraft": "*",
     "fabricloader": ">=0.15.5"
   },
   "suggests": {
