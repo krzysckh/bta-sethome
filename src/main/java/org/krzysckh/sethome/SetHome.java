@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.net.InetAddress;
 import java.sql.*;
 import java.util.ArrayList;
+import java.io.File;
 
 import org.krzysckh.sethome.cmds.*;
 import org.krzysckh.sethome.Home;
@@ -28,8 +29,8 @@ public class SetHome implements ModInitializer {
 
   private void initializeDB() {
     try {
-      if (InetAddress.getLocalHost().getHostName().equals("fuji"))
-        System.setProperty("org.sqlite.lib.path", "/var/minecraft/sqlite");
+      if (new File(".this-is-fuji").exists())
+        System.setProperty("org.sqlite.lib.path", "/sqlite"); /* crazy chroot */
 
       DB_CON = DriverManager.getConnection(dburl);
 
